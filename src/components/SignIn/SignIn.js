@@ -5,7 +5,8 @@ class SignIn extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            responsestatus: ''
         }
     }
 
@@ -18,6 +19,7 @@ class SignIn extends Component {
     }
 
     onSubmitSignIn = () => {
+        let responsestatus = '';
         console.log(this.state);
         fetch('http://localhost:3001/signin', {
             method: 'post',
@@ -28,10 +30,14 @@ class SignIn extends Component {
                 email: this.state.email,
                 password: this.state.password
             })
-        }).then(res => res.json())
+        }).then(res =>{
+            responsestatus = res.status;
+            console.log(responsestatus)
+             return res.json()
+            })
         .then(data => {
-            console.log(data.status)
             console.log(data)
+            console.log(this.state.responsestatus)
         })
         .catch(err => console.log(err))
         this.props.onRouteChange('home');
