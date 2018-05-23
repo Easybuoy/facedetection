@@ -48,27 +48,66 @@ class App extends Component {
       input: '',
       imageUrl: '',
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id: '',
+        email: '',
+        name: '',
+        entries: 0,
+        joined: ''
+
+      }
     }
   }
+
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      email: data.email,
+      name: data.name,
+      entries: data.entries,
+      joined: data.date_joined
+    }  
+  })
+}
 
   onInputChange = (event) => {
       console.log(event);   
   }
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
       console.log('submit');
       // e466caa0619f444ab97497640cefc4dc
 
-    //   fetch('https://www.google.com/search?q=davido&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjD7d-X64nbAhUD26QKHSHGAhoQ_AUICygC', 
-    //   {
-    //     // mode: 'no-cors'
-    //     method: 'GET',
-    //     accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3430.0 Safari/537.36',
-    // })
-    //   .then(res => console.log(res))
-    //   .catch(err=> console.log(err));
+      fetch('https://www.google.com/search?q=davido&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjD7d-X64nbAhUD26QKHSHGAhoQ_AUICygC', 
+      {
+        // mode: 'no-cors'
+        method: 'GET',
+        header: {'content-type': 'application/json'},
+
+        
+        // accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        // 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3430.0 Safari/537.36',
+    })
+      // .then(res => res.json())
+      .then(response => {
+        if(response){
+          fetch('http://localhost:3001/image', {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              id: this.state.user.id
+          }) 
+          })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {entries: count}))
+          })
+        }
+      })
+      .catch(err=> console.log(err));
 
 
   //     app.models.predict('e466caa0619f444ab97497640cefc4dc', "http://www.osundefender.com/wp-content/uploads/2013/12/WHIZKID.jpg")
@@ -118,8 +157,8 @@ class App extends Component {
             this.state.route === 'home' ?
           <div> 
           <Logo />
-          <Rank />
-          <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+          <Rank name = {this.state.user.name} entries = {this.state.user.entries}/>
+          <ImageLinkForm onInputChange = {this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
           <FaceRecognition />
             </div>
             :
@@ -127,7 +166,7 @@ class App extends Component {
               this.state.route === 'signin' ?
               <SignIn onRouteChange = {this.onRouteChange} />
               :
-              <Register onRouteChange = {this.onRouteChange} />
+              <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} />
             )
             
           }
