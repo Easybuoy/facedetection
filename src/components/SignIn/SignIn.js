@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+// import Error from '../Error/Error';
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -32,15 +32,22 @@ class SignIn extends Component {
             })
         }).then(res =>{
             responsestatus = res.status;
-            console.log(responsestatus)
-             return res.json()
+            console.log(responsestatus);
+            if(responsestatus === 200){
+                return res.json()
+             }else{
+                //  <Error />
+                 console.log('error')
+             }
             })
-        .then(data => {
-            console.log(data)
-            console.log(this.state.responsestatus)
+        .then(user => {
+            if(user){
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
         })
         .catch(err => console.log(err))
-        this.props.onRouteChange('home');
+        
     }
 
     render() {

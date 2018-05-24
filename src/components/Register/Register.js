@@ -23,7 +23,7 @@ class Register extends Component {
     }
 
     onSubmitRegister = () => {
-        console.log(this.state);
+        let responsestatus = '';
         fetch('http://localhost:3001/register', {
             method: 'post',
             headers: {
@@ -34,7 +34,15 @@ class Register extends Component {
                 password: this.state.password,
                 name: this.state.name
             })
-        }).then(res => res.json())
+        }).then(res => {
+            responsestatus = res.status;
+            console.log(responsestatus);
+            if(responsestatus === 200){
+                return res.json()
+             }else{
+                 console.log('error')
+             }
+        })
         .then(user => {
             if(user){
                 this.props.loadUser(user)
@@ -45,7 +53,7 @@ class Register extends Component {
     }
 
     render() {
-        const {onRouteChange} = this.props;
+        // const {onRouteChange} = this.props;
         return (
             <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-1 mw6 shadow-5 center">
            <main className="pa4 black-80">
