@@ -70,16 +70,13 @@ class App extends Component {
       joined: data.date_joined
     }  
   })
-  console.log(this.state);
 }
 
-  onPictureInputChange = (event) => {
-      console.log(event.target.value);  
+  onPictureInputChange = (event) => { 
       this.setState({imageUrl: event.target.value }); 
   }
 
   onPictureSubmit = () => {
-      console.log('submit');
       // e466caa0619f444ab97497640cefc4dc
       
 
@@ -104,9 +101,8 @@ class App extends Component {
       .then(
     (response)  => {
       // do something with response
-      console.log(response);
       // let names = response.
-      if(response){ console.log('a');
+      if(response){ 
         let resp = response.outputs[0].data.regions[0].data.face.identity.concepts; 
         this.setState({celebrityimageresponse: resp});
 
@@ -122,11 +118,9 @@ class App extends Component {
         .then(response => response.json())
         .then(count => {
           this.setState(Object.assign(this.state.user, {entries: count}))
-          console.log(this.state)
         })
       }
 
-      console.log('b')
     },
     (err) => {
       // there was an error

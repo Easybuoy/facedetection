@@ -36,17 +36,29 @@ class SignIn extends Component {
             if(responsestatus === 200){
                 return res.json()
              }else{
-                //  <Error />
-                 console.log('error')
+                // <Error
+                // model="user"
+                // messages={{
+                //  passwordsMatch: 'Passwords do not match.',
+                // }} />
+
+                // () => <Error />
+                console.log('error')
              }
             })
         .then(user => {
-            if(user){
+            if(user._id){
                 this.props.loadUser(user);
                 this.props.onRouteChange('home');
             }
         })
-        .catch(err => console.log(err))
+        .catch((err) => {
+            // <div>
+            // {this.triggerError()}
+            // </div>
+            // <Error />
+            console.log(err)
+        })
         
     }
 
