@@ -11,8 +11,8 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
-const CLARIFAI_API_KEY = process.env.CLARIFAI_API_KEY;
-const MODEL_TYPE_KEY = process.env.CLARIFAI_MODEL_TYPE_KEY;
+const CLARIFAI_API_KEY = 'b37b09a823aa43a6a1836c962c23fa47';
+const MODEL_TYPE_KEY = 'e466caa0619f444ab97497640cefc4dc';
 const app = new Clarifai.App({
   
   apiKey: CLARIFAI_API_KEY
