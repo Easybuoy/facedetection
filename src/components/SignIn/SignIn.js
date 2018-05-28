@@ -6,7 +6,8 @@ class SignIn extends Component {
         this.state = {
             email: '',
             password: '',
-            responsestatus: ''
+            responsestatus: '',
+            div: ''
         }
     }
 
@@ -36,6 +37,9 @@ class SignIn extends Component {
             if(responsestatus === 200){
                 return res.json()
              }else{ 
+                // <Error/>
+
+                //  this.error();
                 // <Error
                 // model="user"
                 // messages={{
@@ -64,7 +68,10 @@ class SignIn extends Component {
 
     render() {
         const {onRouteChange} = this.props;
+        
         return (
+            <div>
+            {/* <Error/> */}
             <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-1 mw6 shadow-5 center">
            <main className="pa4 black-80">
                <div className="measure">
@@ -91,6 +98,7 @@ class SignIn extends Component {
                </div>
             </main>
             </article>
+            </div>
         );
     }
 }

@@ -10,7 +10,7 @@ import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
-
+// import Error from './components/Error/Error';
 const CLARIFAI_API_KEY = 'b37b09a823aa43a6a1836c962c23fa47';
 const MODEL_TYPE_KEY = 'e466caa0619f444ab97497640cefc4dc';
 const app = new Clarifai.App({
@@ -162,6 +162,7 @@ class App extends Component {
           
           <Navigation isSignedIn = {this.state.isSignedIn} onRouteChange = {this.onRouteChange} />
           <Logo />
+          {/* <Error /> */}
           {
             this.state.route === 'home' ?
           <div> 
