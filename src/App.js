@@ -109,7 +109,7 @@ class App extends Component {
         let resp = response.outputs[0].data.regions[0].data.face.identity.concepts; 
         this.setState({celebrityimageresponse: resp});
 
-        fetch('http://localhost:3001/image', {
+        fetch('https://facedetectionapis.herokuapp.com/image', {
           method: 'put',
           headers: {
             'Content-Type': 'application/json'
