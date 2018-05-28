@@ -13,7 +13,6 @@ import Register from './components/Register/Register';
 // import Error from './components/Error/Error';
 const CLARIFAI_API_KEY = process.env.REACT_APP_CLARIFAI_API_KEY;
 const MODEL_TYPE_KEY = process.env.REACT_APP_MODEL_TYPE_KEY;
-console.log(process.env.CLARIFAI_API_KEY);
 
 const app = new Clarifai.App({
   
@@ -145,7 +144,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(process.env);
     return (
       <div className="App">
         {/* <header className="App-header">
